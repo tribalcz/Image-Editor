@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Editor obrázků</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  
+<body>
+    <h1>Editor obrázků</h1>
+  <input type="file" id="file-input" style="margin: 2px 5px;">  
+  <br>
+  <div class="tool-menu" style="margin: 2px 5px;">
+    <button id="crop-button" onclick="cropAndResize()" disabled>Oříznout a změnit velikost</button>
+    <button onclick="applyGrayscaleEffect()">Černobílý efekt</button>
+    <button onclick="applySepiaEffect()">Sepiový efekt</button>
+    <button id="remove-button" onclick="removeImage()" disabled>Odstranit obrázek</button>
+  </div>
+  <button id="reset-button" onclick="resetImage()">Vrátit do původního stavu</button>
+  <button id="download-button" onclick="downloadImage()" disabled>Stáhnout upravený obrázek</button>
+  <div id="image-info-panel">
+    <div class="file-name">
+      <p><strong>Název:</strong> <span id="image-name"></span></p>
+    </div>
+    <div class="file-info">
+      <p><strong>Velikost:</strong> <span id="image-size"></span></p>
+      <p><strong>Rozměry:</strong> <span id="image-dimensions"></span></p>
+      <p><strong>Typ:</strong> <span id="image-mime-type"></span></p>
+      <p><strong>Úroveň přiblížení:</strong> <span id="image-zoom"></span></p>
+    </div>
+  </div>
+  <div class="container">
+      <div id="photo-container">
+        <img id="edited-photo" src="" alt="Upravená fotografie">
+        <div id="crop-rectangle"></div>
+      </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="js/imageEditor.js"></script>
+</body>
+</html>
