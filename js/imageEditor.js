@@ -5,6 +5,8 @@ const cropRectangle = document.getElementById('crop-rectangle');
 const resetButton = document.getElementById('reset-button');
 const downloadButton = document.getElementById('download-button');
 const cropButton = document.getElementById('crop-button');
+const sepiaButton = document.getElementById('sepia-button');
+const grayscaleButton = document.getElementById('grayscale-button');
 const zoomElement = document.getElementById('image-zoom');
 const zoomKey = 'z';
 
@@ -34,6 +36,10 @@ fileInput.addEventListener('change', function() {
 
   if (file) {
     reader.readAsDataURL(file);
+
+    sepiaButton.disabled = false;
+    grayscaleButton.disabled = false;
+    zoomLevel = 1;
   }
 });
 
@@ -307,12 +313,11 @@ function removeImage() {
     photo.src = '';
     fileInput.value = '';
     document.title = 'Editor obrázků'
-    if(zoomLevel > 1 || zoomLevel < 1) {
-      zoomLevel = 1;
-    }
-
+    zoomLevel = 1
     isEffectApplied = false;
     isCropSelected = false;
+    sepiaButton.disabled = true;
+    grayscaleButton.disabled = true;
     isCroped = false
     updateButtons();
   }
@@ -325,9 +330,7 @@ function resetImage() {
   isEffectApplied = false;
   isCropSelected = false;
   isCroped = false;
-  if(zoomLevel > 1 || zoomLevel < 1) {
-      zoomLevel = 1;
-  }
+  zoomLevel = 1
   updateButtons();
   showImageInfoPanel();
 }
