@@ -127,6 +127,8 @@ function applyZoom() {
   photo.style.height = `${newHeight}px`;
 
   zoomElement.textContent = `${zoomLevel}x`;
+
+  console.log(zoomLevel);
 }
 
 function updateCropRectangle() {
@@ -308,12 +310,11 @@ function removeImage() {
 
     removeButton.style.display = 'none';
     removeButton.disabled = true;
-    zoomElement.style.display = 'none';
 
     photo.src = '';
     fileInput.value = '';
     document.title = 'Editor obrázků'
-    zoomLevel = 1
+    zoomLevel = 1;
     isEffectApplied = false;
     isCropSelected = false;
     sepiaButton.disabled = true;
@@ -326,11 +327,10 @@ function removeImage() {
 function resetImage() {   
   photo.src = fileInput.files.length ? URL.createObjectURL(fileInput.files[0]) : '';
   resetButton.style.display = 'none';
-  zoomElement.style.display = 'none';
   isEffectApplied = false;
   isCropSelected = false;
   isCroped = false;
-  zoomLevel = 1
+  zoomLevel = 1;
   updateButtons();
   showImageInfoPanel();
 }
