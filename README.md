@@ -17,6 +17,16 @@
     <li>Pokud chcete odstranit nahraný obrázek, klikněte na tlačítko "Odstranit obrázek".</li>
   </ol>
 
+  <h2>Použití na mobilním zařízení</h2>
+  <p>
+    Aplikace není určena pro zařízení s dotykovou obrazovkou, nicméně i zde je možné ji použít.
+  </p>
+  <ul>
+    <li>Pro označené výběrové oblasti nejprve prvním tapnutím označte začátek oblasti pro výběrový nástroj, následně druhým tapnutím označte druhý bod, který utvoří výběrovou oblast.</li>
+    <li>Vyvarujte se dalším krátkým tapnutí, případné další tabnutí zresetuje výběr</li>
+    <li>Pomocí tahů se přesuňte k nabídce pro ořez a efekty</li>
+  </ul>
+
   <h2>Funkce aplikace</h2>
   <ul>
     <li>Nahrávání obrázků a zobrazení náhledu nahraného obrázku.</li>
