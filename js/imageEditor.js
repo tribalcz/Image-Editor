@@ -35,7 +35,6 @@ fileInput.addEventListener('change', function() {
     downloadButton.style.display = 'none';
     downloadButton.disabled = true;
     showImageInfoPanel();
-    updateContainerHeight();
   }
 
   if (file && file.type.startsWith('image/')) {
@@ -285,12 +284,12 @@ function flipImage()
   photo.style.setProperty('--flip', newFlip);
 }
 
-function updateContainerHeight()
+function updateContainerHeight(photoWidth, photoHeight)
 {
   let currentRotation = getComputedStyle(photo).getPropertyValue('--rotation');
   currentRotation = currentRotation ? parseFloat(currentRotation) : 0;
-  let photoWidth = photo.width;
-  let photoHeight = photo.height;
+  photoWidth = photoWidth ?? photo.width;
+  photoHeight = photoHeight ?? photo.height;
 
   console.log(photoHeight);
 
@@ -302,8 +301,6 @@ function updateContainerHeight()
   } else {
     container.style.height = '';
   }
-
-  
   
 }
 
