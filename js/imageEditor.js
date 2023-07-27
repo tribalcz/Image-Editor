@@ -1,12 +1,15 @@
 const photo = document.getElementById('edited-photo');
 const fileInput = document.getElementById('file-input');
 const photoContainer = document.getElementById('photo-container');
+const container = document.getElementById('container');
 const cropRectangle = document.getElementById('crop-rectangle');
 const resetButton = document.getElementById('reset-button');
 const downloadButton = document.getElementById('download-button');
 const cropButton = document.getElementById('crop-button');
 const sepiaButton = document.getElementById('sepia-button');
 const grayscaleButton = document.getElementById('grayscale-button');
+const rotateButton = document.getElementById('rotate-button');
+const flipButton = document.getElementById('flip-button');
 const zoomElement = document.getElementById('image-zoom');
 const zoomKey = 'z';
 
@@ -32,6 +35,7 @@ fileInput.addEventListener('change', function() {
     downloadButton.style.display = 'none';
     downloadButton.disabled = true;
     showImageInfoPanel();
+    updateContainerHeight();
   }
 
   if (file) {
@@ -39,6 +43,8 @@ fileInput.addEventListener('change', function() {
 
     sepiaButton.disabled = false;
     grayscaleButton.disabled = false;
+    rotateButton.disabled = false;
+    flipButton.disabled = false;
     zoomLevel = 1;
   }
 });
@@ -256,6 +262,48 @@ function applySepiaEffect() {
   showImageInfoPanel();
 }
 
+function rotateImage()
+{
+  let currentRotation = getComputedStyle(photo).getPropertyValue('--rotation');
+  currentRotation = currentRotation ? parseFloat(currentRotation) : 0;
+
+  let newRotation = currentRotation + 90;
+  photo.style.setProperty('--rotation', newRotation + 'deg');
+
+  updateContainerHeight();
+}
+
+function flipImage()
+{
+  let currentFlip = getComputedStyle(photo).getPropertyValue('--flip');
+  currentFlip = currentFlip ? parseFloat(currentFlip) : 1;
+
+  let newFlip = currentFlip * -1;
+  photo.style.setProperty('--flip', newFlip);
+}
+
+function updateContainerHeight()
+{
+  let currentRotation = getComputedStyle(photo).getPropertyValue('--rotation');
+  currentRotation = currentRotation ? parseFloat(currentRotation) : 0;
+  let photoWidth = photo.width;
+  let photoHeight = photo.height;
+
+  console.log(photoHeight);
+
+  console.log(photoWidth);
+
+  if(currentRotation % 180 !== 0) {
+    [photoHeight, photoWidth] = [photoWidth, photoHeight];
+    container.style.height = photoHeight + 'px';
+  } else {
+    container.style.height = '';
+  }
+
+  
+  
+}
+
 function showImageInfoPanel() {
   const imageInfoPanel = document.getElementById('image-info-panel');
   const imageNameElement = document.getElementById('image-name');
@@ -319,6 +367,8 @@ function removeImage() {
     isCropSelected = false;
     sepiaButton.disabled = true;
     grayscaleButton.disabled = true;
+    rotateButton.disabled = true;
+    flipButton.disabled = true
     isCroped = false
     updateButtons();
   }

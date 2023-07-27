@@ -15,9 +15,11 @@
   <input type="file" id="file-input" style="margin: 2px 5px;">  
   <br>
   <div class="tool-menu" style="margin: 2px 5px;">
-    <button id="crop-button" onclick="cropAndResize()" disabled><i class="fa-solid fa-crop"></i></button>
+    <button id="crop-button" onclick="cropAndResize()" disabled title="Oříznout"><i class="fa-solid fa-crop"></i></button>
     <button id="grayscale-button" onclick="applyGrayscaleEffect()" disabled>Černobílý efekt</button>
     <button id="sepia-button" onclick="applySepiaEffect()" disabled>Sepiový efekt</button>
+    <button id="rotate-button" onclick="rotateImage()" disabled>Rotace</button>
+    <button id="flip-button" onclick="flipImage()" disabled>Zrcadlení</button>
     <button id="remove-button" onclick="removeImage()" disabled>Odstranit obrázek</button>
   </div>
   <button id="reset-button" onclick="resetImage()">Vrátit do původního stavu</button>
@@ -33,7 +35,7 @@
       <p><strong>Úroveň přiblížení:</strong> <span id="image-zoom"></span></p>
     </div>
   </div>
-  <div class="container">
+  <div id="container">
       <div id="photo-container">
         <img id="edited-photo" src="" alt="Upravená fotografie">
         <div id="crop-rectangle"></div>
