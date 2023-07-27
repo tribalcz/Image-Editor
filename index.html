@@ -16,8 +16,12 @@
   <br>
   <div class="tool-menu" style="margin: 2px 5px;">
     <button id="crop-button" onclick="cropAndResize()" disabled title="Oříznout"><i class="fa-solid fa-crop"></i></button>
-    <button id="grayscale-button" onclick="applyGrayscaleEffect()" disabled>Černobílý efekt</button>
-    <button id="sepia-button" onclick="applySepiaEffect()" disabled>Sepiový efekt</button>
+    <select id="effect-select" disabled>
+      <option value="none">Vyberte efekt</option>
+      <option value="grayscale">Černobílý efekt</option>
+      <option value="sepia">Sépiový efekt</option>
+      <option value="vintage">Vintage efekt</option>
+    </select>
     <button id="rotate-button" onclick="rotateImage()" disabled>Rotace</button>
     <button id="flip-button" onclick="flipImage()" disabled>Zrcadlení</button>
     <button id="remove-button" onclick="removeImage()" disabled>Odstranit obrázek</button>
