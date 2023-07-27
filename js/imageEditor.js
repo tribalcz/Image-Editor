@@ -8,6 +8,7 @@ const downloadButton = document.getElementById('download-button');
 const cropButton = document.getElementById('crop-button');
 const sepiaButton = document.getElementById('sepia-button');
 const grayscaleButton = document.getElementById('grayscale-button');
+const vintageButton = document.getElementById('vintage-button');
 const rotateButton = document.getElementById('rotate-button');
 const flipButton = document.getElementById('flip-button');
 const zoomElement = document.getElementById('image-zoom');
@@ -42,6 +43,7 @@ fileInput.addEventListener('change', function() {
 
     sepiaButton.disabled = false;
     grayscaleButton.disabled = false;
+    vintageButton.disabled = false;
     rotateButton.disabled = false;
     flipButton.disabled = false;
     zoomLevel = 1;
@@ -264,6 +266,43 @@ function applySepiaEffect() {
   showImageInfoPanel();
 }
 
+function applyVintageEffect()
+{
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
+
+  canvas.width = photo.width;
+  canvas.height = photo.height;
+
+  ctx.drawImage(photo, 0, 0);
+
+  const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  const data = imageData.data;
+
+  for(let i=0; i < data.length; i += 4) {
+    const red = data[i];
+    const green = data[i + 4];
+    const blue = data[i + 2];
+
+    data[i] = red * 0.9;
+    data[i + 1] = green * 0.7;
+    data[i + 2] = blue * 0.5;
+    
+    data[i] += 30;
+    data[i + 1] += 10;
+  }
+
+  ctx.putImageData(imageData, 0, 0);
+
+  photo.src = canvas.toDataURL();
+  resetButton.style.display = 'block';
+  isEffectApplied = true;
+  isCropSelected = false;
+  isCroped = false;
+  updateButtons();
+  showImageInfoPanel();
+}
+
 function rotateImage()
 {
   let currentRotation = getComputedStyle(photo).getPropertyValue('--rotation');
@@ -369,6 +408,7 @@ function removeImage() {
     isCropSelected = false;
     sepiaButton.disabled = true;
     grayscaleButton.disabled = true;
+    vintageButton.disabled = true;
     rotateButton.disabled = true;
     flipButton.disabled = true
     isCroped = false
