@@ -363,6 +363,8 @@ function removeImage() {
     fileInput.value = '';
     document.title = 'Editor obrázků'
     zoomLevel = 1;
+    container.style.height = '';
+    photo.style.setProperty('--rotation', '0deg');
     isEffectApplied = false;
     isCropSelected = false;
     sepiaButton.disabled = true;
@@ -377,6 +379,8 @@ function removeImage() {
 function resetImage() {   
   photo.src = fileInput.files.length ? URL.createObjectURL(fileInput.files[0]) : '';
   resetButton.style.display = 'none';
+  container.style.height = '';
+  photo.style.setProperty('--rotation', '0deg');
   isEffectApplied = false;
   isCropSelected = false;
   isCroped = false;
