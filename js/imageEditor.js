@@ -81,17 +81,9 @@ document.addEventListener('mousemove', function(e) {
 effectSelector.addEventListener('change', function() {
   const selectedEffect = effectSelector.value;
 
-  if(selectedEffect === 'none') {
-    resetImage();
-  } 
-  else if(selectedEffect === 'grayscale') {
-    applyGrayscaleEffect();
-  }
-  else if(selectedEffect === 'sepia') {
-    applySepiaEffect();
-  }
-  else if(selectedEffect === 'vintage') {
-    applyVintageEffect();
+  if(selectedEffect === 'none') {} 
+  else if(selectedEffect === 'grayscale' || selectedEffect === 'sepia' || selectedEffect === 'vintage') {
+    applyEffect(selectedEffect);
   }
 });
 
@@ -206,7 +198,7 @@ function cropAndResize() {
   updateButtons();
 }
 
-function applyGrayscaleEffect() {
+function applyEffect(effectType) {
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d');
 
@@ -218,90 +210,51 @@ function applyGrayscaleEffect() {
   const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
   const data = imageData.data;
 
-  for (let i = 0; i < data.length; i += 4) {
-    const red = data[i];
-    const green = data[i + 1];
-    const blue = data[i + 2];
-
-    const gray = 0.2126 * red + 0.7152 * green + 0.0722 * blue;
-
-    data[i] = gray;
-    data[i + 1] = gray;
-    data[i + 2] = gray;
-  }
-
-  ctx.putImageData(imageData, 0, 0);
-
-  photo.src = canvas.toDataURL();
-  resetButton.style.display = 'block';
-  isEffectApplied = true;
-  isCropSelected = false;
-  isCroped = false;
-  updateButtons();
-  showImageInfoPanel();
-}
-
-function applySepiaEffect() {
-  const canvas = document.createElement('canvas');
-  const ctx = canvas.getContext('2d');
-
-  canvas.width = photo.width;
-  canvas.height = photo.height;
-
-  ctx.drawImage(photo, 0, 0, canvas.width, canvas.height);
-
-  const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-  const data = imageData.data;
-
-  for (let i = 0; i < data.length; i += 4) {
-    const red = data[i];
-    const green = data[i + 1];
-    const blue = data[i + 2];
-
-    const sepiaRed = (0.393 * red + 0.769 * green + 0.189 * blue);
-    const sepiaGreen = (0.349 * red + 0.686 * green + 0.168 * blue);
-    const sepiaBlue = (0.272 * red + 0.534 * green + 0.131 * blue);
-
-    data[i] = sepiaRed;
-    data[i + 1] = sepiaGreen;
-    data[i + 2] = sepiaBlue;
-  }
-
-  ctx.putImageData(imageData, 0, 0);
-
-  photo.src = canvas.toDataURL();
-  resetButton.style.display = 'block';
-  isEffectApplied = true;
-  isCropSelected = false;
-  isCroped = false;
-  updateButtons();
-  showImageInfoPanel();
-}
-
-function applyVintageEffect()
-{
-  const canvas = document.createElement('canvas');
-  const ctx = canvas.getContext('2d');
-
-  canvas.width = photo.width;
-  canvas.height = photo.height;
-
-  ctx.drawImage(photo, 0, 0);
-
-  const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-  const data = imageData.data;
-
-  for(let i=0; i < data.length; i += 4) {
-    const red = data[i];
-    const green = data[i + 4];
-    const blue = data[i + 2];
-
-    data[i] = red * 0.9;
-    data[i + 1] = green * 0.7;
-    data[i + 2] = blue * 0.5;
+  switch(effectType) {
+    case 'grayscale':
+      for (let i = 0; i < data.length; i += 4) {
+        const red = data[i];
+        const green = data[i + 1];
+        const blue = data[i + 2];
     
-    data[i] += 30;
-    data[i + 1] += 10;
+        const gray = 0.2126 * red + 0.7152 * green + 0.0722 * blue;
+    
+        data[i] = gray;
+        data[i + 1] = gray;
+        data[i + 2] = gray;
+      }
+      break;
+    case 'sepia':
+      for (let i = 0; i < data.length; i += 4) {
+        const red = data[i];
+        const green = data[i + 1];
+        const blue = data[i + 2];
+    
+        const sepiaRed = (0.393 * red + 0.769 * green + 0.189 * blue);
+        const sepiaGreen = (0.349 * red + 0.686 * green + 0.168 * blue);
+        const sepiaBlue = (0.272 * red + 0.534 * green + 0.131 * blue);
+    
+        data[i] = sepiaRed;
+        data[i + 1] = sepiaGreen;
+        data[i + 2] = sepiaBlue;
+      }
+      break;
+    case 'vintage':
+      for(let i=0; i < data.length; i += 4) {
+        const red = data[i];
+        const green = data[i + 4];
+        const blue = data[i + 2];
+    
+        data[i] = red * 0.9;
+        data[i + 1] = green * 0.7;
+        data[i + 2] = blue * 0.5;
+        
+        data[i] += 30;
+        data[i + 1] += 10;
+      }
+      break;
+    default:
+      return;
   }
 
   ctx.putImageData(imageData, 0, 0);
@@ -314,6 +267,7 @@ function applyVintageEffect()
   updateButtons();
   showImageInfoPanel();
 }
+
 
 function rotateImage()
 {
