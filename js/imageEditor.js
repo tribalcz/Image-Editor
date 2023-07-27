@@ -38,7 +38,7 @@ fileInput.addEventListener('change', function() {
     updateContainerHeight();
   }
 
-  if (file) {
+  if (file && file.type.startsWith('image/')) {
     reader.readAsDataURL(file);
 
     sepiaButton.disabled = false;
@@ -46,6 +46,9 @@ fileInput.addEventListener('change', function() {
     rotateButton.disabled = false;
     flipButton.disabled = false;
     zoomLevel = 1;
+  } else {
+    alert('Soubor musí být obrázek.')
+    fileInput.value = '';
   }
 });
 
