@@ -240,17 +240,23 @@ function applyEffect(effectType) {
       }
       break;
     case 'vintage':
-      for(let i=0; i < data.length; i += 4) {
+      for (let i = 0; i < data.length; i += 4) {
         const red = data[i];
-        const green = data[i + 4];
+        const green = data[i + 1];
         const blue = data[i + 2];
     
-        data[i] = red * 0.9;
-        data[i + 1] = green * 0.7;
-        data[i + 2] = blue * 0.5;
+        data[i] *= 0.8;
+        data[i + 1] *= 0.6;
+        data[i + 2] *= 0.4;
         
-        data[i] += 30;
-        data[i + 1] += 10;
+        //Přidání šumu a prachu
+        data[i] += Math.random() * 0.2 - 0.1;
+        data[i + 1] += Math.random() * 0.2 - 0.1;
+        data[i + 2] += Math.random() * 0.2 - 0.1;
+    
+        data[i] += Math.random() * 0.05;
+        data[i + 1] += Math.random() * 0.05;
+        data[i + 2] += Math.random() * 0.05;
       }
       break;
     default:
@@ -267,7 +273,6 @@ function applyEffect(effectType) {
   updateButtons();
   showImageInfoPanel();
 }
-
 
 function rotateImage()
 {
@@ -306,7 +311,6 @@ function updateContainerHeight(photoWidth, photoHeight)
   } else {
     container.style.height = '';
   }
-  
 }
 
 function showImageInfoPanel() {
