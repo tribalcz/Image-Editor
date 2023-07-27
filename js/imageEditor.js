@@ -6,9 +6,7 @@ const cropRectangle = document.getElementById('crop-rectangle');
 const resetButton = document.getElementById('reset-button');
 const downloadButton = document.getElementById('download-button');
 const cropButton = document.getElementById('crop-button');
-const sepiaButton = document.getElementById('sepia-button');
-const grayscaleButton = document.getElementById('grayscale-button');
-const vintageButton = document.getElementById('vintage-button');
+const effectSelector = document.getElementById('effect-select');
 const rotateButton = document.getElementById('rotate-button');
 const flipButton = document.getElementById('flip-button');
 const zoomElement = document.getElementById('image-zoom');
@@ -40,10 +38,7 @@ fileInput.addEventListener('change', function() {
 
   if (file && file.type.startsWith('image/')) {
     reader.readAsDataURL(file);
-
-    sepiaButton.disabled = false;
-    grayscaleButton.disabled = false;
-    vintageButton.disabled = false;
+    effectSelector.disabled = false;
     rotateButton.disabled = false;
     flipButton.disabled = false;
     zoomLevel = 1;
@@ -81,6 +76,23 @@ document.addEventListener('mousemove', function(e) {
   endY = e.pageY - photoContainer.offsetTop;
 
   updateCropRectangle();
+});
+
+effectSelector.addEventListener('change', function() {
+  const selectedEffect = effectSelector.value;
+
+  if(selectedEffect === 'none') {
+    resetImage();
+  } 
+  else if(selectedEffect === 'grayscale') {
+    applyGrayscaleEffect();
+  }
+  else if(selectedEffect === 'sepia') {
+    applySepiaEffect();
+  }
+  else if(selectedEffect === 'vintage') {
+    applyVintageEffect();
+  }
 });
 
 document.addEventListener('keydown', function(e) {
@@ -406,9 +418,7 @@ function removeImage() {
     photo.style.setProperty('--rotation', '0deg');
     isEffectApplied = false;
     isCropSelected = false;
-    sepiaButton.disabled = true;
-    grayscaleButton.disabled = true;
-    vintageButton.disabled = true;
+    effectSelector.disabled = true;
     rotateButton.disabled = true;
     flipButton.disabled = true
     isCroped = false
