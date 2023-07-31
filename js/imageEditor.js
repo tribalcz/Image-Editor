@@ -185,7 +185,6 @@ function cropAndResize() {
   currentFlip = currentFlip ? parseFloat(currentFlip) : 1;
 
   if (currentFlip === -1) {
-    // Pokud je zrcadlení, změň x a width
     x = photo.width - x - width;
   }
 
@@ -397,6 +396,7 @@ function resetImage() {
   resetButton.style.display = 'none';
   container.style.height = '';
   photo.style.setProperty('--rotation', '0deg');
+  photo.style.setProperty('--flip', '1');
   isEffectApplied = false;
   isCropSelected = false;
   isCroped = false;
