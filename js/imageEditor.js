@@ -181,6 +181,14 @@ function cropAndResize() {
   let width = rect.width - 4; //Odečtení tloušťky výběrového nástroje
   let height = rect.height - 4; //Odečtení tloušťky výběrového nástroje
 
+  let currentFlip = getComputedStyle(photo).getPropertyValue('--flip');
+  currentFlip = currentFlip ? parseFloat(currentFlip) : 1;
+
+  if (currentFlip === -1) {
+    // Pokud je zrcadlení, změň x a width
+    x = photo.width - x - width;
+  }
+
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d');
 
